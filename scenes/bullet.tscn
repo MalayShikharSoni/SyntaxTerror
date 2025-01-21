@@ -1,0 +1,30 @@
+[gd_scene load_steps=5 format=3 uid="uid://cgqdvxwclvde8"]
+
+[ext_resource type="Texture2D" uid="uid://cpbo0wno5h1df" path="res://assets/sprites/coin.png" id="1_i87al"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_g7v6s"]
+atlas = ExtResource("1_i87al")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wbi7k"]
+atlas = ExtResource("1_i87al")
+region = Rect2(48, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_1mwbx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_g7v6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wbi7k")
+}],
+"loop": true,
+"name": &"shot",
+"speed": 10.0
+}]
+
+[node name="Bullet" type="AnimatedSprite2D"]
+sprite_frames = SubResource("SpriteFrames_1mwbx")
+animation = &"shot"
+frame_progress = 0.756721
