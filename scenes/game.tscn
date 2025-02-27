@@ -7,10 +7,12 @@
 [node name="Game" type="Node2D"]
 
 [node name="Player" parent="." instance=ExtResource("1_75ekw")]
-position = Vector2(39, 63)
+position = Vector2(2, -9)
 
 [node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2(-2, 44)
 zoom = Vector2(4, 4)
+position_smoothing_enabled = true
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(41, 81)
