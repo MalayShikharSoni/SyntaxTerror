@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://dbbj7hmmns0ov"]
+[gd_scene load_steps=51 format=3 uid="uid://dbbj7hmmns0ov"]
 
 [ext_resource type="Texture2D" uid="uid://dgnxk6cvvaggx" path="res://assets/sprites/JustinCaseIdle-Sheet.png" id="1_iv0st"]
 [ext_resource type="Script" path="res://scripts/player.gd" id="1_udjgj"]
@@ -169,6 +169,14 @@ region = Rect2(128, 0, 64, 64)
 atlas = ExtResource("3_1wtel")
 region = Rect2(192, 0, 64, 64)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_osops"]
+atlas = ExtResource("3_1wtel")
+region = Rect2(320, 0, 64, 64)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5mh8e"]
+atlas = ExtResource("3_1wtel")
+region = Rect2(256, 0, 64, 64)
+
 [sub_resource type="AtlasTexture" id="AtlasTexture_kgada"]
 atlas = ExtResource("4_1s1ce")
 region = Rect2(0, 0, 16, 16)
@@ -315,11 +323,22 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
+"texture": SubResource("AtlasTexture_osops")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5mh8e")
+}],
+"loop": false,
+"name": &"run_shoot",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": SubResource("AtlasTexture_kgada")
 }],
-"loop": true,
+"loop": false,
 "name": &"shoot",
-"speed": 10.0
+"speed": 1.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_tjk4a"]
@@ -331,9 +350,8 @@ script = ExtResource("1_udjgj")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(1, -32)
 sprite_frames = SubResource("SpriteFrames_r724j")
-animation = &"idle"
+animation = &"shoot"
 autoplay = "idle"
-frame_progress = 0.452378
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 position = Vector2(-1.5, -24)
