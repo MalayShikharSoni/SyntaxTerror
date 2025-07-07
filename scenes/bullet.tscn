@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://d4dlkb8eswb0i"]
+[gd_scene load_steps=6 format=3 uid="uid://d4dlkb8eswb0i"]
 
 [ext_resource type="Texture2D" uid="uid://cpbo0wno5h1df" path="res://assets/sprites/coin.png" id="1_i87al"]
+[ext_resource type="Script" path="res://scripts/bullet.gd" id="2_5a32r"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_g7v6s"]
 atlas = ExtResource("1_i87al")
@@ -19,7 +20,7 @@ animations = [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_wbi7k")
 }],
-"loop": true,
+"loop": false,
 "name": &"shot",
 "speed": 10.0
 }]
@@ -28,3 +29,11 @@ animations = [{
 sprite_frames = SubResource("SpriteFrames_1mwbx")
 animation = &"shot"
 frame_progress = 0.756721
+script = ExtResource("2_5a32r")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

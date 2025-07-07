@@ -1,8 +1,11 @@
 extends CharacterBody2D
+@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
+
+var bullet = preload("res://scenes/bullet.tscn")
+@onready var muzzle: Marker2D = $Muzzle
 
 const SPEED = 130.0
 const JUMP_VELOCITY = -300.0
-@onready var animated_sprite: AnimatedSprite2D = $AnimatedSprite2D
 
 enum PlayerState {
 	IDLE,
@@ -13,9 +16,10 @@ enum PlayerState {
 	JUMP_SHOOT
 }
 
+#MUZZLE POSITION VARIABLE
+var muzzle_position
 # GLOBAL PLAYER STATE
 var state: PlayerState = PlayerState.IDLE
-
 # SHOOT LOCK FLAG
 var shooting_locked: bool = false
 
@@ -27,7 +31,10 @@ func _physics_process(delta: float) -> void:
 	update_state()
 	play_animation()
 	move_character()
-	player_shooting(delta)
+	
+	if Input.is_action_just_pressed("shoot") and not shooting_locked:
+		player_shooting(delta)
+
 
 	print("State: ", PlayerState.keys()[state], " | Locked: ", shooting_locked)
 
@@ -49,8 +56,13 @@ func handle_movement_input() -> void:
 	var direction := Input.get_axis("move_left", "move_right")
 	if direction > 0:
 		animated_sprite.flip_h = false
+		muzzle.position.x = abs(muzzle_position.x)  # → facing right
 	elif direction < 0:
 		animated_sprite.flip_h = true
+		muzzle.position.x = -abs(muzzle_position.x) # ← facing left
+		
+	
+
 
 
 # TO UPDATE ALL THE STATES
@@ -60,7 +72,7 @@ func update_state() -> void:
 		return
 
 	var direction := Input.get_axis("move_left", "move_right")
-	var is_shooting := Input.is_action_just_pressed("shoot")
+	var is_shooting := shooting_locked
 
 	if not is_on_floor():
 		if is_shooting:
@@ -112,14 +124,26 @@ func move_character() -> void:
 
 # SHOOTING LOGIC
 func player_shooting(delta: float) -> void:
-	# Will be filled with bullet instancing and cooldown later
-	pass
+	#CREATED BULLET ISNTANCE AND ADDED TO GAME ROOT
+	var bullet_instance = bullet.instantiate() as Node2D
+	bullet_instance.global_position = muzzle.global_position
+	
+	if(animated_sprite.flip_h):
+		bullet_instance.direction = -1
+	else:
+		bullet_instance.direction = 1
+		
+	
+	get_parent().add_child(bullet_instance)
+	
+	# Set bullet direction based on sprite flip
+
 
 
 # CONNECT SIGNAL WHEN READY
 func _ready() -> void:
 	animated_sprite.animation_finished.connect(_on_animation_finished)
-
+	muzzle_position = muzzle.position
 
 # UNLOCK SHOOTING STATE ON ANIMATION END
 func _on_animation_finished() -> void:
