@@ -3,32 +3,25 @@
 [ext_resource type="Texture2D" uid="uid://cpbo0wno5h1df" path="res://assets/sprites/coin.png" id="1_i87al"]
 [ext_resource type="Script" path="res://scripts/bullet.gd" id="2_5a32r"]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_g7v6s"]
+[sub_resource type="AtlasTexture" id="AtlasTexture_42din"]
 atlas = ExtResource("1_i87al")
-region = Rect2(0, 0, 16, 16)
+region = Rect2(96, 0, 16, 16)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_wbi7k"]
-atlas = ExtResource("1_i87al")
-region = Rect2(48, 0, 16, 16)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_1mwbx"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_4j6ad"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": SubResource("AtlasTexture_g7v6s")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_wbi7k")
+"texture": SubResource("AtlasTexture_42din")
 }],
-"loop": false,
-"name": &"shot",
-"speed": 10.0
+"loop": true,
+"name": &"default",
+"speed": 5.0
 }]
 
-[node name="Bullet" type="AnimatedSprite2D"]
-sprite_frames = SubResource("SpriteFrames_1mwbx")
-animation = &"shot"
-frame_progress = 0.756721
+[sub_resource type="CircleShape2D" id="CircleShape2D_0tig5"]
+radius = 5.0
+
+[node name="Bullet" type="Area2D"]
 script = ExtResource("2_5a32r")
 
 [node name="Timer" type="Timer" parent="."]
@@ -36,4 +29,15 @@ wait_time = 5.0
 one_shot = true
 autostart = true
 
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_4j6ad")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_0tig5")
+
+[node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
+position = Vector2(1.78814e-07, 1.78814e-07)
+scale = Vector2(0.5, 0.5)
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

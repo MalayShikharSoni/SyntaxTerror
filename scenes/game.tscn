@@ -1,6 +1,7 @@
-[gd_scene load_steps=3 format=3 uid="uid://b3b57b36suxkj"]
+[gd_scene load_steps=4 format=3 uid="uid://b3b57b36suxkj"]
 
 [ext_resource type="PackedScene" uid="uid://dbbj7hmmns0ov" path="res://scenes/player.tscn" id="1_75ekw"]
+[ext_resource type="PackedScene" uid="uid://cr8r5iu0jnce4" path="res://scenes/obstacle.tscn" id="2_2w122"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_bun8t"]
 
@@ -19,3 +20,7 @@ position = Vector2(41, 81)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 shape = SubResource("WorldBoundaryShape2D_bun8t")
+
+[node name="Obstacle" parent="." instance=ExtResource("2_2w122")]
+position = Vector2(92, 60)
+scale = Vector2(0.27, 0.27)
