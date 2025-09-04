@@ -5,6 +5,9 @@ Step inside a glitchy IDE, grab your trusty keyboard-weapon, and blast away erro
 
 ---
 
+
+![Meet Justin Case](assets/sprites/JustinCaseIdle-Sheet.png)
+
 ## 🎮 Features
 - 💻 Play as a programmer trapped inside their own code editor.  
 - ⌨️ Shoot *keyboard bullets* to squash bugs and glitches.  
